@@ -1,0 +1,37 @@
+extends layouts/main
+
+block contenido
+  .encabezado-seccion
+    h2 Padrón General de Socios y Personal
+    p Base de usuarios de Espacio Sideral S.A.S.
+  table.tabla-turnos
+    thead
+      tr
+        th ID
+        th Apellido y Nombre
+        th DNI
+        th Correo Electrónico
+        th Teléfono
+        th Perfil / Rol
+    tbody
+      if clientes.length
+        each c in clientes
+          tr
+            td
+              code= c.id
+            td
+              strong= `${c.apellido}, ${c.nombre}`
+            td= c.dni
+            td= c.email
+            td= c.telefono || 'Sin teléfono'
+            td
+              if c.rol === 'empleado'
+                span.badge.badge-empleado Personal Administrativo
+              else
+                span.badge.badge-regular Socio / Paciente
+      else
+        tr
+          td(colspan="6" style="text-align: center; padding: 25px;") No se registran usuarios en la base de datos.
+  .acciones-retorno
+    a.btn-volver(href="/") &larr; Volver al Inicio
+    a.btn-volver(href="/vista/turnos") Ir a la Grilla de Recepción &rarr;
